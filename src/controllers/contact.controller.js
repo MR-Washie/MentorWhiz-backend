@@ -35,7 +35,7 @@ export const contactForm = async (req, res) => {
         Mobile No: ${data.mobileNo}
         Message : ${data.message}`
     };
-    console.log(mailOptions);
+    // console.log(mailOptions);
 
     await transporter.sendMail(mailOptions);
 
