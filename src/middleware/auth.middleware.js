@@ -31,3 +31,15 @@ export const protectRoute = async (req, res, next) => {
         res.status(500).json({ message : "Internal server error"});
     }
 }
+
+export const requireAdmin = (req, res, next) => {
+  try {
+    // protectRoute ran before and set req.existingUser
+    const user = req.existingUser;
+    if (!user) return res.status(401).json({ message: "Unauthorized" });
+    if (user.role !== "admin") return res.status(403).json({ message: "Forbidden: Admins only" });
+    next();
+  } catch (e) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
